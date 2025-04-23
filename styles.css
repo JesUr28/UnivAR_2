@@ -1,6 +1,18 @@
 * {
   outline: 1px solid red;
 }
+/* Evita desplazamiento horizontal global */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Asegura que el contenedor de texto no se desborde */
+#info-box {
+  overflow-x: hidden;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
 
 /* Contenedor principal: divide la pantalla en dos partes */
 #container {
