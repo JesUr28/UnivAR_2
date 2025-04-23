@@ -1,3 +1,11 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: 100vw;
+  touch-action: none; /* Evita zoom lateral o doble tap */
+}
+
 /* Contenedor principal: divide la pantalla en dos partes */
 #container {
   display: flex;
