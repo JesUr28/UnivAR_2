@@ -85,6 +85,8 @@ document.querySelector("#marker-responsabilidad").addEventListener("markerFound"
   document.querySelector("#responsabilidad-model").setAttribute("scale", "0.4 0.4 0.4")
 })
 
+
+
 // Opción: Puedes hacer que desaparezca el texto cuando no haya marcador detectado
 document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
   titleElement.innerText = ""
@@ -116,6 +118,7 @@ document.querySelector("#marker-responsabilidad").addEventListener("markerLost",
   textElement.innerText = ""
 })
 
+
 // Función de texto a voz
 speakBtn.addEventListener("click", () => {
   if (isSpeaking) {
@@ -146,44 +149,3 @@ speakBtn.addEventListener("click", () => {
 document.addEventListener("gesturestart", (e) => {
   e.preventDefault()
 })
-
-// Añade este código al final de tu archivo script.js existente
-
-// Prevenir desplazamiento horizontal
-document.addEventListener(
-  "touchmove",
-  (e) => {
-    // Verifica si el desplazamiento es horizontal
-    if (
-      Math.abs(e.touches[0].clientX - e.touches[0].initialClientX) >
-      Math.abs(e.touches[0].clientY - e.touches[0].initialClientY)
-    ) {
-      e.preventDefault()
-    }
-  },
-  { passive: false },
-)
-
-// Inicializar el touch para detectar dirección
-document.addEventListener("touchstart", (e) => {
-  e.touches[0].initialClientX = e.touches[0].clientX
-  e.touches[0].initialClientY = e.touches[0].clientY
-})
-
-// Asegurar que el contenido se ajuste al ancho de la ventana
-function adjustViewport() {
-  const container = document.getElementById("container")
-  const infoBox = document.getElementById("info-box")
-
-  if (container) {
-    container.style.width = window.innerWidth + "px"
-  }
-
-  if (infoBox) {
-    infoBox.style.width = window.innerWidth + "px"
-  }
-}
-
-// Ejecutar al cargar y al cambiar el tamaño de la ventana
-window.addEventListener("load", adjustViewport)
-window.addEventListener("resize", adjustViewport)
