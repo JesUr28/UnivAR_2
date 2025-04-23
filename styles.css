@@ -1,31 +1,3 @@
-/* Centra el contenido y evita scroll horizontal */
-html, body {
-  overflow-x: hidden;
-  max-width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
-/* Asegura que el canvas y contenedor de texto no causen desbordes */
-#info-box, canvas {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Centrado y padding adecuado */
-#info-box {
-  margin: 0 auto;
-  padding: 20px;
-  text-align: justify;
-}
-
-/* Opcional: fuerza que el canvas no se desborde */
-canvas {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  height: auto;
-}
 
 /* Contenedor principal: divide la pantalla en dos partes */
 #container {
