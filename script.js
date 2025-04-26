@@ -1,20 +1,17 @@
-// Inicialización de variables
 const synth = window.speechSynthesis
 let utterance = null
+let isSpeaking = false
+let isPaused = false
 let currentText = ""
 let currentPosition = 0
 let activeMarker = null
-let isSpeaking = false
-let isPaused = false
 
-// Elementos del DOM
 const speakBtn = document.getElementById("speak-btn")
 const textElement = document.getElementById("phoenix-text")
 const titleElement = document.getElementById("title")
 const playIcon = document.getElementById("play-icon")
 const pauseIcon = document.getElementById("pause-icon")
 
-// Textos para cada marcador
 const texts = {
   phoenix: {
     title: "Historia del Fénix",
@@ -48,94 +45,6 @@ const texts = {
   },
 }
 
-// Función para mostrar el contenido cuando se detecta un marcador
-function showContent(markerId) {
-  const markerKey = markerId.replace("marker-", "")
-  if (texts[markerKey]) {
-    titleElement.innerText = texts[markerKey].title
-    textElement.innerText = texts[markerKey].content
-    currentText = texts[markerKey].content
-    activeMarker = markerId
-
-    // Mostrar el botón de reproducción
-    speakBtn.classList.remove("hidden")
-
-    // Si estaba hablando de otro marcador, detener y reiniciar
-    if (isSpeaking && !isPaused) {
-      stopSpeaking()
-    }
-  }
-}
-
-// Función para ocultar el contenido cuando se pierde un marcador
-function hideContent(markerId) {
-  if (activeMarker === markerId) {
-    titleElement.innerText = ""
-    textElement.innerText = ""
-    activeMarker = null
-
-    // Ocultar el botón y detener la reproducción
-    speakBtn.classList.add("hidden")
-    stopSpeaking()
-  }
-}
-
-// Función para iniciar o reanudar la reproducción
-function startSpeaking() {
-  if (isPaused) {
-    // Reanudar desde donde se pausó
-    utterance = new SpeechSynthesisUtterance(currentText.substring(currentPosition))
-  } else {
-    // Iniciar desde el principio
-    utterance = new SpeechSynthesisUtterance(currentText)
-    currentPosition = 0
-  }
-
-  utterance.lang = "es-ES"
-  utterance.rate = 1.0
-  utterance.pitch = 1.0
-
-  // Guardar la posición actual para poder reanudar después
-  utterance.onboundary = (event) => {
-    if (event.name === "word") {
-      currentPosition = event.charIndex
-    }
-  }
-
-  utterance.onstart = () => {
-    isSpeaking = true
-    isPaused = false
-    updateButtonState()
-  }
-
-  utterance.onend = () => {
-    isSpeaking = false
-    isPaused = false
-    currentPosition = 0
-    updateButtonState()
-  }
-
-  synth.speak(utterance)
-}
-
-// Función para pausar la reproducción
-function pauseSpeaking() {
-  if (isSpeaking) {
-    synth.pause()
-    isPaused = true
-    updateButtonState()
-  }
-}
-
-// Función para detener completamente la reproducción
-function stopSpeaking() {
-  synth.cancel()
-  isSpeaking = false
-  isPaused = false
-  currentPosition = 0
-  updateButtonState()
-}
-
 // Función para actualizar el estado del botón
 function updateButtonState() {
   if (isSpeaking && !isPaused) {
@@ -147,42 +56,211 @@ function updateButtonState() {
   }
 }
 
-// Evento de clic en el botón de reproducción
+// Función para detener la reproducción
+function stopSpeaking() {
+  synth.cancel()
+  isSpeaking = false
+  isPaused = false
+  updateButtonState()
+}
+
+// Detectar cuándo un marcador es visible
+document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
+  titleElement.innerText = texts.phoenix.title
+  textElement.innerText = texts.phoenix.content
+  currentText = texts.phoenix.content
+  activeMarker = "phoenix"
+
+  // Mostrar el botón de reproducción
+  speakBtn.classList.remove("hidden")
+
+  // Restablecer escala al tamaño original del ave
+  document.querySelector("#bird-model").setAttribute("scale", "0.6 1 1")
+})
+
+document.querySelector("#marker-lion").addEventListener("markerFound", () => {
+  titleElement.innerText = texts.lion.title
+  textElement.innerText = texts.lion.content
+  currentText = texts.lion.content
+  activeMarker = "lion"
+
+  // Mostrar el botón de reproducción
+  speakBtn.classList.remove("hidden")
+
+  // Restablecer escala al tamaño original del león
+  document.querySelector("#lion-model").setAttribute("scale", "0.6 1 1")
+})
+
+document.querySelector("#marker-honestidad").addEventListener("markerFound", () => {
+  titleElement.innerText = texts.honestidad.title
+  textElement.innerText = texts.honestidad.content
+  currentText = texts.honestidad.content
+  activeMarker = "honestidad"
+
+  // Mostrar el botón de reproducción
+  speakBtn.classList.remove("hidden")
+
+  // Restablecer escala al tamaño original del león
+  document.querySelector("#honestidad-model").setAttribute("scale", "1 1 1")
+})
+
+document.querySelector("#marker-prudencia").addEventListener("markerFound", () => {
+  titleElement.innerText = texts.prudencia.title
+  textElement.innerText = texts.prudencia.content
+  currentText = texts.prudencia.content
+  activeMarker = "prudencia"
+
+  // Mostrar el botón de reproducción
+  speakBtn.classList.remove("hidden")
+
+  // Restablecer escala al tamaño original del león
+  document.querySelector("#prudencia-model").setAttribute("scale", "1 1 1")
+})
+
+document.querySelector("#marker-justicia").addEventListener("markerFound", () => {
+  titleElement.innerText = texts.justicia.title
+  textElement.innerText = texts.justicia.content
+  currentText = texts.justicia.content
+  activeMarker = "justicia"
+
+  // Mostrar el botón de reproducción
+  speakBtn.classList.remove("hidden")
+
+  // Restablecer escala al tamaño original de responsabilidad
+  document.querySelector("#justicia-model").setAttribute("scale", "1 1 1")
+})
+
+document.querySelector("#marker-responsabilidad").addEventListener("markerFound", () => {
+  titleElement.innerText = texts.responsabilidad.title
+  textElement.innerText = texts.responsabilidad.content
+  currentText = texts.responsabilidad.content
+  activeMarker = "responsabilidad"
+
+  // Mostrar el botón de reproducción
+  speakBtn.classList.remove("hidden")
+
+  // Restablecer escala al tamaño original de responsabilidad
+  document.querySelector("#responsabilidad-model").setAttribute("scale", "0.4 0.4 0.4")
+})
+
+// Opción: Puedes hacer que desaparezca el texto cuando no haya marcador detectado
+document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
+  if (activeMarker === "phoenix") {
+    titleElement.innerText = ""
+    textElement.innerText = ""
+    activeMarker = null
+
+    // Ocultar el botón y detener la reproducción
+    speakBtn.classList.add("hidden")
+    stopSpeaking()
+  }
+})
+
+document.querySelector("#marker-lion").addEventListener("markerLost", () => {
+  if (activeMarker === "lion") {
+    titleElement.innerText = ""
+    textElement.innerText = ""
+    activeMarker = null
+
+    // Ocultar el botón y detener la reproducción
+    speakBtn.classList.add("hidden")
+    stopSpeaking()
+  }
+})
+
+document.querySelector("#marker-honestidad").addEventListener("markerLost", () => {
+  if (activeMarker === "honestidad") {
+    titleElement.innerText = ""
+    textElement.innerText = ""
+    activeMarker = null
+
+    // Ocultar el botón y detener la reproducción
+    speakBtn.classList.add("hidden")
+    stopSpeaking()
+  }
+})
+
+document.querySelector("#marker-prudencia").addEventListener("markerLost", () => {
+  if (activeMarker === "prudencia") {
+    titleElement.innerText = ""
+    textElement.innerText = ""
+    activeMarker = null
+
+    // Ocultar el botón y detener la reproducción
+    speakBtn.classList.add("hidden")
+    stopSpeaking()
+  }
+})
+
+document.querySelector("#marker-justicia").addEventListener("markerLost", () => {
+  if (activeMarker === "justicia") {
+    titleElement.innerText = ""
+    textElement.innerText = ""
+    activeMarker = null
+
+    // Ocultar el botón y detener la reproducción
+    speakBtn.classList.add("hidden")
+    stopSpeaking()
+  }
+})
+
+document.querySelector("#marker-responsabilidad").addEventListener("markerLost", () => {
+  if (activeMarker === "responsabilidad") {
+    titleElement.innerText = ""
+    textElement.innerText = ""
+    activeMarker = null
+
+    // Ocultar el botón y detener la reproducción
+    speakBtn.classList.add("hidden")
+    stopSpeaking()
+  }
+})
+
+// Función de texto a voz con pausa/reanudación
 speakBtn.addEventListener("click", () => {
   if (isSpeaking && !isPaused) {
-    pauseSpeaking()
+    // Pausar la reproducción
+    synth.pause()
+    isPaused = true
+    updateButtonState()
+  } else if (isPaused) {
+    // Reanudar la reproducción
+    synth.resume()
+    isPaused = false
+    updateButtonState()
   } else {
-    startSpeaking()
+    // Iniciar nueva reproducción
+    if (currentText) {
+      utterance = new SpeechSynthesisUtterance(currentText)
+      utterance.lang = "es-ES"
+      utterance.rate = 1.0
+      utterance.pitch = 1.0
+
+      // Guardar la posición actual para poder reanudar después
+      utterance.onboundary = (event) => {
+        if (event.name === "word") {
+          currentPosition = event.charIndex
+        }
+      }
+
+      utterance.onstart = () => {
+        isSpeaking = true
+        updateButtonState()
+      }
+
+      utterance.onend = () => {
+        isSpeaking = false
+        isPaused = false
+        currentPosition = 0
+        updateButtonState()
+      }
+
+      synth.speak(utterance)
+    }
   }
 })
 
-// Eventos para detectar marcadores
-const markers = ["phoenix", "lion", "honestidad", "prudencia", "justicia", "responsabilidad"]
-
-markers.forEach((marker) => {
-  const markerElement = document.querySelector(`#marker-${marker}`)
-
-  markerElement.addEventListener("markerFound", () => {
-    showContent(`marker-${marker}`)
-  })
-
-  markerElement.addEventListener("markerLost", () => {
-    hideContent(`marker-${marker}`)
-  })
-})
-
-// Prevenir zoom en dispositivos iOS
+// Pequeña mejora para prevenir zoom en dispositivos iOS
 document.addEventListener("gesturestart", (e) => {
   e.preventDefault()
-})
-
-// Verificar si el navegador soporta la API de síntesis de voz
-document.addEventListener("DOMContentLoaded", () => {
-  if (!("speechSynthesis" in window)) {
-    speakBtn.disabled = true
-    speakBtn.innerText = "Navegador no compatible"
-  }
-
-  // Precarga de voces para mejor rendimiento
-  synth.getVoices()
 })
