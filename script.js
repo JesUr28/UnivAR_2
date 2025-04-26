@@ -13,7 +13,8 @@ const texts = {
   phoenix: {
     title: "Historia del Fénix",
     content:
-      "El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte. Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.",
+      `El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte. 
+      Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.`,
   },
   lion: {
     title: "Historia del León",
