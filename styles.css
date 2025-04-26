@@ -49,6 +49,10 @@
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
+  min-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .speak-button:hover {
@@ -99,4 +103,30 @@
     box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
   }
 }
+
+/* Estilos para el indicador de carga */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#loading-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 
