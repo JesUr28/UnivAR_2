@@ -211,7 +211,7 @@ function hideMarkerContent(markerId) {
 document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
   showMarkerContent("marker-phoenix")
   // Restablecer escala al tamaño original del ave
-  document.querySelector("#phoenix-model").setAttribute("scale", "0.6 1 1")
+  document.querySelector("#bird-model").setAttribute("scale", "0.6 1 1")
 })
 document.querySelector("#marker-lion").addEventListener("markerFound", () => {
   showMarkerContent("marker-lion")
