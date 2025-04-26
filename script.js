@@ -1,11 +1,13 @@
 const synth = window.speechSynthesis
 let isSpeaking = false
 let activeMarker = null
+let isProcessingMarker = false // Flag para evitar procesamiento simultáneo de marcadores
 
 const playBtn = document.getElementById("play-btn")
 const stopBtn = document.getElementById("stop-btn")
 const textElement = document.getElementById("phoenix-text")
 const titleElement = document.getElementById("title")
+const instructionMessage = document.getElementById("instruction-message")
 
 const texts = {
   phoenix: {
@@ -65,156 +67,120 @@ function stopSpeaking() {
   updateButtonState()
 }
 
-// Detectar cuándo un marcador es visible
-document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
-  titleElement.innerText = texts.phoenix.title
-  textElement.innerText = texts.phoenix.content
-  activeMarker = "phoenix"
+// Función para mostrar el contenido del marcador
+function showMarkerContent(markerId) {
+  // Si ya hay un marcador activo o estamos procesando otro, ignorar este
+  if (isProcessingMarker && activeMarker && activeMarker !== markerId) {
+    return
+  }
 
-  // Mostrar el botón adecuado
+  isProcessingMarker = true
+
+  const markerKey = markerId.replace("marker-", "")
+
+  // Ocultar mensaje de instrucción
+  instructionMessage.classList.add("hidden")
+
+  // Mostrar título y texto
+  titleElement.classList.remove("hidden")
+  textElement.classList.remove("hidden")
+
+  // Establecer contenido
+  titleElement.innerText = texts[markerKey].title
+  textElement.innerText = texts[markerKey].content
+
+  // Actualizar marcador activo
+  activeMarker = markerId
+
+  // Actualizar botones
   updateButtonState()
 
+  // Liberar el flag después de un breve retraso para evitar cambios rápidos
+  setTimeout(() => {
+    isProcessingMarker = false
+  }, 500)
+}
+
+// Función para ocultar el contenido cuando se pierde un marcador
+function hideMarkerContent(markerId) {
+  if (activeMarker === markerId) {
+    // Ocultar título y texto
+    titleElement.classList.add("hidden")
+    textElement.classList.add("hidden")
+
+    // Mostrar mensaje de instrucción
+    instructionMessage.classList.remove("hidden")
+
+    // Resetear marcador activo
+    activeMarker = null
+
+    // Ocultar botones y detener reproducción
+    playBtn.classList.add("hidden")
+    stopBtn.classList.add("hidden")
+    stopSpeaking()
+  }
+}
+
+// Detectar cuándo un marcador es visible
+document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
+  showMarkerContent("marker-phoenix")
   // Restablecer escala al tamaño original del ave
   document.querySelector("#bird-model").setAttribute("scale", "0.6 1 1")
 })
 
 document.querySelector("#marker-lion").addEventListener("markerFound", () => {
-  titleElement.innerText = texts.lion.title
-  textElement.innerText = texts.lion.content
-  activeMarker = "lion"
-
-  // Mostrar el botón adecuado
-  updateButtonState()
-
+  showMarkerContent("marker-lion")
   // Restablecer escala al tamaño original del león
   document.querySelector("#lion-model").setAttribute("scale", "0.6 1 1")
 })
 
 document.querySelector("#marker-honestidad").addEventListener("markerFound", () => {
-  titleElement.innerText = texts.honestidad.title
-  textElement.innerText = texts.honestidad.content
-  activeMarker = "honestidad"
-
-  // Mostrar el botón adecuado
-  updateButtonState()
-
-  // Restablecer escala al tamaño original del león
+  showMarkerContent("marker-honestidad")
+  // Restablecer escala al tamaño original
   document.querySelector("#honestidad-model").setAttribute("scale", "1 1 1")
 })
 
 document.querySelector("#marker-prudencia").addEventListener("markerFound", () => {
-  titleElement.innerText = texts.prudencia.title
-  textElement.innerText = texts.prudencia.content
-  activeMarker = "prudencia"
-
-  // Mostrar el botón adecuado
-  updateButtonState()
-
-  // Restablecer escala al tamaño original del león
+  showMarkerContent("marker-prudencia")
+  // Restablecer escala al tamaño original
   document.querySelector("#prudencia-model").setAttribute("scale", "1 1 1")
 })
 
 document.querySelector("#marker-justicia").addEventListener("markerFound", () => {
-  titleElement.innerText = texts.justicia.title
-  textElement.innerText = texts.justicia.content
-  activeMarker = "justicia"
-
-  // Mostrar el botón adecuado
-  updateButtonState()
-
-  // Restablecer escala al tamaño original de responsabilidad
+  showMarkerContent("marker-justicia")
+  // Restablecer escala al tamaño original
   document.querySelector("#justicia-model").setAttribute("scale", "1 1 1")
 })
 
 document.querySelector("#marker-responsabilidad").addEventListener("markerFound", () => {
-  titleElement.innerText = texts.responsabilidad.title
-  textElement.innerText = texts.responsabilidad.content
-  activeMarker = "responsabilidad"
-
-  // Mostrar el botón adecuado
-  updateButtonState()
-
-  // Restablecer escala al tamaño original de responsabilidad
+  showMarkerContent("marker-responsabilidad")
+  // Restablecer escala al tamaño original
   document.querySelector("#responsabilidad-model").setAttribute("scale", "0.4 0.4 0.4")
 })
 
-// Opción: Puedes hacer que desaparezca el texto cuando no haya marcador detectado
+// Detectar cuándo un marcador se pierde
 document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
-  if (activeMarker === "phoenix") {
-    titleElement.innerText = ""
-    textElement.innerText = ""
-    activeMarker = null
-
-    // Ocultar todos los botones y detener la reproducción
-    playBtn.classList.add("hidden")
-    stopBtn.classList.add("hidden")
-    stopSpeaking()
-  }
+  hideMarkerContent("marker-phoenix")
 })
 
 document.querySelector("#marker-lion").addEventListener("markerLost", () => {
-  if (activeMarker === "lion") {
-    titleElement.innerText = ""
-    textElement.innerText = ""
-    activeMarker = null
-
-    // Ocultar todos los botones y detener la reproducción
-    playBtn.classList.add("hidden")
-    stopBtn.classList.add("hidden")
-    stopSpeaking()
-  }
+  hideMarkerContent("marker-lion")
 })
 
 document.querySelector("#marker-honestidad").addEventListener("markerLost", () => {
-  if (activeMarker === "honestidad") {
-    titleElement.innerText = ""
-    textElement.innerText = ""
-    activeMarker = null
-
-    // Ocultar todos los botones y detener la reproducción
-    playBtn.classList.add("hidden")
-    stopBtn.classList.add("hidden")
-    stopSpeaking()
-  }
+  hideMarkerContent("marker-honestidad")
 })
 
 document.querySelector("#marker-prudencia").addEventListener("markerLost", () => {
-  if (activeMarker === "prudencia") {
-    titleElement.innerText = ""
-    textElement.innerText = ""
-    activeMarker = null
-
-    // Ocultar todos los botones y detener la reproducción
-    playBtn.classList.add("hidden")
-    stopBtn.classList.add("hidden")
-    stopSpeaking()
-  }
+  hideMarkerContent("marker-prudencia")
 })
 
 document.querySelector("#marker-justicia").addEventListener("markerLost", () => {
-  if (activeMarker === "justicia") {
-    titleElement.innerText = ""
-    textElement.innerText = ""
-    activeMarker = null
-
-    // Ocultar todos los botones y detener la reproducción
-    playBtn.classList.add("hidden")
-    stopBtn.classList.add("hidden")
-    stopSpeaking()
-  }
+  hideMarkerContent("marker-justicia")
 })
 
 document.querySelector("#marker-responsabilidad").addEventListener("markerLost", () => {
-  if (activeMarker === "responsabilidad") {
-    titleElement.innerText = ""
-    textElement.innerText = ""
-    activeMarker = null
-
-    // Ocultar todos los botones y detener la reproducción
-    playBtn.classList.add("hidden")
-    stopBtn.classList.add("hidden")
-    stopSpeaking()
-  }
+  hideMarkerContent("marker-responsabilidad")
 })
 
 // Función para iniciar la reproducción
@@ -248,4 +214,3 @@ stopBtn.addEventListener("click", () => {
 document.addEventListener("gesturestart", (e) => {
   e.preventDefault()
 })
-
