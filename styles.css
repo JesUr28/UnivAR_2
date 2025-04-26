@@ -99,9 +99,3 @@
 .speak-button:not(.hidden) {
   animation: fadeIn 0.3s ease-out;
 }
-
-
-.speak-button:hover {
-  background-color: #45a049;
-}
-
