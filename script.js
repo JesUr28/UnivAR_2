@@ -50,7 +50,6 @@ function updateButtonState() {
   // Ocultar todos los botones primero
   speakBtn.classList.add("hidden")
   pauseBtn.classList.add("hidden")
-  resumeBtn.classList.add("hidden")
 
   // Solo mostrar botones si hay un marcador activo
   if (activeMarker) {
@@ -59,8 +58,8 @@ function updateButtonState() {
       // Si está reproduciendo, mostrar el botón de pausa
       pauseBtn.classList.remove("hidden")
     } else if (isPaused) {
-      // Si está pausado, mostrar el botón de continuar
-      resumeBtn.classList.remove("hidden")
+      // Si está pausado, mostrar el botón de reproducir
+      speakBtn.classList.remove("hidden")
     } else {
       // Si no está reproduciendo ni pausado, mostrar el botón de reproducir
       speakBtn.classList.remove("hidden")
@@ -74,40 +73,6 @@ function stopSpeaking() {
   isSpeaking = false
   isPaused = false
   updateButtonState()
-}
-
-// Función para iniciar la reproducción desde una posición específica
-function startSpeakingFromPosition(text, position) {
-  // Cancelar cualquier reproducción anterior
-  synth.cancel()
-
-  // Crear un nuevo utterance con el texto desde la posición actual
-  utterance = new SpeechSynthesisUtterance(text.substring(position))
-  utterance.lang = "es-ES"
-  utterance.rate = 1.0
-  utterance.pitch = 1.0
-
-  // Actualizar la posición actual mientras habla
-  utterance.onboundary = (event) => {
-    if (event.name === "word") {
-      currentPosition = position + event.charIndex
-    }
-  }
-
-  utterance.onstart = () => {
-    isSpeaking = true
-    isPaused = false
-    updateButtonState()
-  }
-
-  utterance.onend = () => {
-    isSpeaking = false
-    isPaused = false
-    currentPosition = 0
-    updateButtonState()
-  }
-
-  synth.speak(utterance)
 }
 
 // Detectar cuándo un marcador es visible
@@ -289,14 +254,6 @@ pauseBtn.addEventListener("click", () => {
     synth.pause()
     isPaused = true
     updateButtonState()
-  }
-})
-
-// Función para reanudar la reproducción
-resumeBtn.addEventListener("click", () => {
-  if (isPaused && currentText) {
-    // Crear un nuevo utterance desde la posición actual
-    startSpeakingFromPosition(currentText, currentPosition)
   }
 })
 
