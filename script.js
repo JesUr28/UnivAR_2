@@ -13,20 +13,7 @@ const titleElement = document.getElementById("title")
 const instructionMessage = document.getElementById("instruction-message")
 
 const texts = {
-  logo: {
-    title: "Universidad: LOGO",
-    content:
-      `La marca gráfica es el principal signo
-      identificador de la Universidad Popular del
-      Cesar y está conformado por un símbolo con
-      las letras UPC y la representación del ser
-      humano, y el logotipo. Es la firma de la
-      institución en la cual se manifiestan sus
-      valores, principios y personalidad, originando
-      un impacto y un reconocimiento en la
-      memoria.`,
-  },
-  economia: {
+  phoenix: {
     title: "Programa: RESPETO",
     content:
       `Título Otorgado: Economista
@@ -61,12 +48,25 @@ const texts = {
       
       Ubicación: Aguachica - Cesar`;
   },
-  mision: {
+  lion: {
     title: "Universidad: MISIÓN",
     content:
       `La Universidad Popular del Cesar, como institución de educación superior oficial del orden nacional, forma personas responsables social y culturalmente; 
       con una educación de calidad, integral e inclusiva, rigor científico y tecnológico; mediante las diferentes modalidades y metodologías de educación, 
       a través de programas pertinentes al contexto, dentro de la diversidad de campos disciplinares, en un marco de libertad de pensamiento; que consolide la construcción de saberes, para contribuir a la solución de problemas y conflictos, en un ambiente sostenible, con visibilidad nacional e internacional.`,
+  },
+  logo: {
+    title: "Universidad: LOGO",
+    content:
+      `La marca gráfica es el principal signo
+      identificador de la Universidad Popular del
+      Cesar y está conformado por un símbolo con
+      las letras UPC y la representación del ser
+      humano, y el logotipo. Es la firma de la
+      institución en la cual se manifiestan sus
+      valores, principios y personalidad, originando
+      un impacto y un reconocimiento en la
+      memoria.`,
   },
   honestidad: {
     title: "Valor Intitucional: HONESTIDAD",
@@ -208,20 +208,20 @@ function hideMarkerContent(markerId) {
 }
 
 // Detectar cuándo un marcador es visible
+document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
+  showMarkerContent("marker-phoenix")
+  // Restablecer escala al tamaño original del ave
+  document.querySelector("#phoenix-model").setAttribute("scale", "0.6 1 1")
+})
+document.querySelector("#marker-lion").addEventListener("markerFound", () => {
+  showMarkerContent("marker-lion")
+  // Restablecer escala al tamaño original del león
+  document.querySelector("#lion-model").setAttribute("scale", "0.6 1 1")
+})
 document.querySelector("#marker-logo").addEventListener("markerFound", () => {
   showMarkerContent("marker-logo")
   // Restablecer escala al tamaño original del ave
   document.querySelector("#logo-model").setAttribute("scale", "0.6 1 1")
-})
-document.querySelector("#marker-economia").addEventListener("markerFound", () => {
-  showMarkerContent("marker-economia")
-  // Restablecer escala al tamaño original del ave
-  document.querySelector("#economia-model").setAttribute("scale", "0.6 1 1")
-})
-document.querySelector("#marker-mision").addEventListener("markerFound", () => {
-  showMarkerContent("marker-mision")
-  // Restablecer escala al tamaño original del león
-  document.querySelector("#mision-model").setAttribute("scale", "0.6 1 1")
 })
 document.querySelector("#marker-honestidad").addEventListener("markerFound", () => {
   showMarkerContent("marker-honestidad")
@@ -260,11 +260,11 @@ document.querySelector("#marker-veracidad").addEventListener("markerFound", () =
 document.querySelector("#marker-logo").addEventListener("markerLost", () => {
   hideMarkerContent("marker-logo")
 })
-document.querySelector("#marker-economia").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-economia")
+document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-phoenix")
 })
-document.querySelector("#marker-mision").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-mision")
+document.querySelector("#marker-lion").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-lion")
 })
 document.querySelector("#marker-honestidad").addEventListener("markerLost", () => {
   hideMarkerContent("marker-honestidad")
