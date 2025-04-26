@@ -257,9 +257,7 @@ document.querySelector("#marker-veracidad").addEventListener("markerFound", () =
 
 
 // Detectar cuándo un marcador se pierde
-document.querySelector("#marker-logo").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-logo")
-})
+
 document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
   hideMarkerContent("marker-phoenix")
 })
@@ -283,6 +281,9 @@ document.querySelector("#marker-diligencia").addEventListener("markerLost", () =
 })
 document.querySelector("#marker-veracidad").addEventListener("markerLost", () => {
   hideMarkerContent("marker-veracidad")
+})
+document.querySelector("#marker-logo").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-logo")
 })
 
 // Función para iniciar la reproducción
