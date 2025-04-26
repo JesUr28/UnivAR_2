@@ -52,16 +52,19 @@ function updateButtonState() {
   pauseBtn.classList.add("hidden")
   resumeBtn.classList.add("hidden")
 
-  // Mostrar el botón adecuado según el estado
-  if (isSpeaking && !isPaused) {
-    // Si está reproduciendo, mostrar el botón de pausa
-    pauseBtn.classList.remove("hidden")
-  } else if (isPaused) {
-    // Si está pausado, mostrar el botón de continuar
-    resumeBtn.classList.remove("hidden")
-  } else {
-    // Si no está reproduciendo ni pausado, mostrar el botón de reproducir
-    speakBtn.classList.remove("hidden")
+  // Solo mostrar botones si hay un marcador activo
+  if (activeMarker) {
+    // Mostrar el botón adecuado según el estado
+    if (isSpeaking && !isPaused) {
+      // Si está reproduciendo, mostrar el botón de pausa
+      pauseBtn.classList.remove("hidden")
+    } else if (isPaused) {
+      // Si está pausado, mostrar el botón de continuar
+      resumeBtn.classList.remove("hidden")
+    } else {
+      // Si no está reproduciendo ni pausado, mostrar el botón de reproducir
+      speakBtn.classList.remove("hidden")
+    }
   }
 }
 
@@ -71,6 +74,40 @@ function stopSpeaking() {
   isSpeaking = false
   isPaused = false
   updateButtonState()
+}
+
+// Función para iniciar la reproducción desde una posición específica
+function startSpeakingFromPosition(text, position) {
+  // Cancelar cualquier reproducción anterior
+  synth.cancel()
+
+  // Crear un nuevo utterance con el texto desde la posición actual
+  utterance = new SpeechSynthesisUtterance(text.substring(position))
+  utterance.lang = "es-ES"
+  utterance.rate = 1.0
+  utterance.pitch = 1.0
+
+  // Actualizar la posición actual mientras habla
+  utterance.onboundary = (event) => {
+    if (event.name === "word") {
+      currentPosition = position + event.charIndex
+    }
+  }
+
+  utterance.onstart = () => {
+    isSpeaking = true
+    isPaused = false
+    updateButtonState()
+  }
+
+  utterance.onend = () => {
+    isSpeaking = false
+    isPaused = false
+    currentPosition = 0
+    updateButtonState()
+  }
+
+  synth.speak(utterance)
 }
 
 // Detectar cuándo un marcador es visible
@@ -240,31 +277,9 @@ document.querySelector("#marker-responsabilidad").addEventListener("markerLost",
 // Función para iniciar la reproducción
 speakBtn.addEventListener("click", () => {
   if (currentText) {
-    utterance = new SpeechSynthesisUtterance(currentText)
-    utterance.lang = "es-ES"
-    utterance.rate = 1.0
-    utterance.pitch = 1.0
-
-    // Guardar la posición actual para poder reanudar después
-    utterance.onboundary = (event) => {
-      if (event.name === "word") {
-        currentPosition = event.charIndex
-      }
-    }
-
-    utterance.onstart = () => {
-      isSpeaking = true
-      updateButtonState()
-    }
-
-    utterance.onend = () => {
-      isSpeaking = false
-      isPaused = false
-      currentPosition = 0
-      updateButtonState()
-    }
-
-    synth.speak(utterance)
+    // Iniciar desde el principio
+    currentPosition = 0
+    startSpeakingFromPosition(currentText, 0)
   }
 })
 
@@ -279,10 +294,9 @@ pauseBtn.addEventListener("click", () => {
 
 // Función para reanudar la reproducción
 resumeBtn.addEventListener("click", () => {
-  if (isPaused) {
-    synth.resume()
-    isPaused = false
-    updateButtonState()
+  if (isPaused && currentText) {
+    // Crear un nuevo utterance desde la posición actual
+    startSpeakingFromPosition(currentText, currentPosition)
   }
 })
 
@@ -290,3 +304,4 @@ resumeBtn.addEventListener("click", () => {
 document.addEventListener("gesturestart", (e) => {
   e.preventDefault()
 })
+
