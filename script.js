@@ -1,14 +1,9 @@
 const synth = window.speechSynthesis
-let utterance = null
 let isSpeaking = false
-let isPaused = false
-let currentText = ""
-let currentPosition = 0
 let activeMarker = null
 
-const speakBtn = document.getElementById("speak-btn")
-const pauseBtn = document.getElementById("pause-btn")
-const resumeBtn = document.getElementById("resume-btn")
+const playBtn = document.getElementById("play-btn")
+const stopBtn = document.getElementById("stop-btn")
 const textElement = document.getElementById("phoenix-text")
 const titleElement = document.getElementById("title")
 
@@ -47,22 +42,18 @@ const texts = {
 
 // Función para actualizar el estado de los botones
 function updateButtonState() {
-  // Ocultar todos los botones primero
-  speakBtn.classList.add("hidden")
-  pauseBtn.classList.add("hidden")
+  // Ocultar ambos botones primero
+  playBtn.classList.add("hidden")
+  stopBtn.classList.add("hidden")
 
   // Solo mostrar botones si hay un marcador activo
   if (activeMarker) {
-    // Mostrar el botón adecuado según el estado
-    if (isSpeaking && !isPaused) {
-      // Si está reproduciendo, mostrar el botón de pausa
-      pauseBtn.classList.remove("hidden")
-    } else if (isPaused) {
-      // Si está pausado, mostrar el botón de reproducir
-      speakBtn.classList.remove("hidden")
+    if (isSpeaking) {
+      // Si está reproduciendo, mostrar el botón de detener
+      stopBtn.classList.remove("hidden")
     } else {
-      // Si no está reproduciendo ni pausado, mostrar el botón de reproducir
-      speakBtn.classList.remove("hidden")
+      // Si no está reproduciendo, mostrar el botón de reproducir
+      playBtn.classList.remove("hidden")
     }
   }
 }
@@ -71,7 +62,6 @@ function updateButtonState() {
 function stopSpeaking() {
   synth.cancel()
   isSpeaking = false
-  isPaused = false
   updateButtonState()
 }
 
@@ -79,7 +69,6 @@ function stopSpeaking() {
 document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
   titleElement.innerText = texts.phoenix.title
   textElement.innerText = texts.phoenix.content
-  currentText = texts.phoenix.content
   activeMarker = "phoenix"
 
   // Mostrar el botón adecuado
@@ -92,7 +81,6 @@ document.querySelector("#marker-phoenix").addEventListener("markerFound", () => 
 document.querySelector("#marker-lion").addEventListener("markerFound", () => {
   titleElement.innerText = texts.lion.title
   textElement.innerText = texts.lion.content
-  currentText = texts.lion.content
   activeMarker = "lion"
 
   // Mostrar el botón adecuado
@@ -105,7 +93,6 @@ document.querySelector("#marker-lion").addEventListener("markerFound", () => {
 document.querySelector("#marker-honestidad").addEventListener("markerFound", () => {
   titleElement.innerText = texts.honestidad.title
   textElement.innerText = texts.honestidad.content
-  currentText = texts.honestidad.content
   activeMarker = "honestidad"
 
   // Mostrar el botón adecuado
@@ -118,7 +105,6 @@ document.querySelector("#marker-honestidad").addEventListener("markerFound", () 
 document.querySelector("#marker-prudencia").addEventListener("markerFound", () => {
   titleElement.innerText = texts.prudencia.title
   textElement.innerText = texts.prudencia.content
-  currentText = texts.prudencia.content
   activeMarker = "prudencia"
 
   // Mostrar el botón adecuado
@@ -131,7 +117,6 @@ document.querySelector("#marker-prudencia").addEventListener("markerFound", () =
 document.querySelector("#marker-justicia").addEventListener("markerFound", () => {
   titleElement.innerText = texts.justicia.title
   textElement.innerText = texts.justicia.content
-  currentText = texts.justicia.content
   activeMarker = "justicia"
 
   // Mostrar el botón adecuado
@@ -144,7 +129,6 @@ document.querySelector("#marker-justicia").addEventListener("markerFound", () =>
 document.querySelector("#marker-responsabilidad").addEventListener("markerFound", () => {
   titleElement.innerText = texts.responsabilidad.title
   textElement.innerText = texts.responsabilidad.content
-  currentText = texts.responsabilidad.content
   activeMarker = "responsabilidad"
 
   // Mostrar el botón adecuado
@@ -162,9 +146,8 @@ document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
     activeMarker = null
 
     // Ocultar todos los botones y detener la reproducción
-    speakBtn.classList.add("hidden")
-    pauseBtn.classList.add("hidden")
-    resumeBtn.classList.add("hidden")
+    playBtn.classList.add("hidden")
+    stopBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -176,9 +159,8 @@ document.querySelector("#marker-lion").addEventListener("markerLost", () => {
     activeMarker = null
 
     // Ocultar todos los botones y detener la reproducción
-    speakBtn.classList.add("hidden")
-    pauseBtn.classList.add("hidden")
-    resumeBtn.classList.add("hidden")
+    playBtn.classList.add("hidden")
+    stopBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -190,9 +172,8 @@ document.querySelector("#marker-honestidad").addEventListener("markerLost", () =
     activeMarker = null
 
     // Ocultar todos los botones y detener la reproducción
-    speakBtn.classList.add("hidden")
-    pauseBtn.classList.add("hidden")
-    resumeBtn.classList.add("hidden")
+    playBtn.classList.add("hidden")
+    stopBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -204,9 +185,8 @@ document.querySelector("#marker-prudencia").addEventListener("markerLost", () =>
     activeMarker = null
 
     // Ocultar todos los botones y detener la reproducción
-    speakBtn.classList.add("hidden")
-    pauseBtn.classList.add("hidden")
-    resumeBtn.classList.add("hidden")
+    playBtn.classList.add("hidden")
+    stopBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -218,9 +198,8 @@ document.querySelector("#marker-justicia").addEventListener("markerLost", () => 
     activeMarker = null
 
     // Ocultar todos los botones y detener la reproducción
-    speakBtn.classList.add("hidden")
-    pauseBtn.classList.add("hidden")
-    resumeBtn.classList.add("hidden")
+    playBtn.classList.add("hidden")
+    stopBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -232,29 +211,37 @@ document.querySelector("#marker-responsabilidad").addEventListener("markerLost",
     activeMarker = null
 
     // Ocultar todos los botones y detener la reproducción
-    speakBtn.classList.add("hidden")
-    pauseBtn.classList.add("hidden")
-    resumeBtn.classList.add("hidden")
+    playBtn.classList.add("hidden")
+    stopBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
 
 // Función para iniciar la reproducción
-speakBtn.addEventListener("click", () => {
-  if (currentText) {
-    // Iniciar desde el principio
-    currentPosition = 0
-    startSpeakingFromPosition(currentText, 0)
+playBtn.addEventListener("click", () => {
+  if (textElement.innerText) {
+    const utterance = new SpeechSynthesisUtterance(textElement.innerText)
+    utterance.lang = "es-ES"
+    utterance.rate = 1.0
+    utterance.pitch = 1.0
+
+    utterance.onstart = () => {
+      isSpeaking = true
+      updateButtonState()
+    }
+
+    utterance.onend = () => {
+      isSpeaking = false
+      updateButtonState()
+    }
+
+    synth.speak(utterance)
   }
 })
 
-// Función para pausar la reproducción
-pauseBtn.addEventListener("click", () => {
-  if (isSpeaking) {
-    synth.pause()
-    isPaused = true
-    updateButtonState()
-  }
+// Función para detener la reproducción
+stopBtn.addEventListener("click", () => {
+  stopSpeaking()
 })
 
 // Pequeña mejora para prevenir zoom en dispositivos iOS
