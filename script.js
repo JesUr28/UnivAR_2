@@ -7,10 +7,10 @@ let currentPosition = 0
 let activeMarker = null
 
 const speakBtn = document.getElementById("speak-btn")
+const pauseBtn = document.getElementById("pause-btn")
+const resumeBtn = document.getElementById("resume-btn")
 const textElement = document.getElementById("phoenix-text")
 const titleElement = document.getElementById("title")
-const playIcon = document.getElementById("play-icon")
-const pauseIcon = document.getElementById("pause-icon")
 
 const texts = {
   phoenix: {
@@ -45,14 +45,23 @@ const texts = {
   },
 }
 
-// Función para actualizar el estado del botón
+// Función para actualizar el estado de los botones
 function updateButtonState() {
+  // Ocultar todos los botones primero
+  speakBtn.classList.add("hidden")
+  pauseBtn.classList.add("hidden")
+  resumeBtn.classList.add("hidden")
+
+  // Mostrar el botón adecuado según el estado
   if (isSpeaking && !isPaused) {
-    playIcon.classList.add("hidden")
-    pauseIcon.classList.remove("hidden")
+    // Si está reproduciendo, mostrar el botón de pausa
+    pauseBtn.classList.remove("hidden")
+  } else if (isPaused) {
+    // Si está pausado, mostrar el botón de continuar
+    resumeBtn.classList.remove("hidden")
   } else {
-    playIcon.classList.remove("hidden")
-    pauseIcon.classList.add("hidden")
+    // Si no está reproduciendo ni pausado, mostrar el botón de reproducir
+    speakBtn.classList.remove("hidden")
   }
 }
 
@@ -71,8 +80,8 @@ document.querySelector("#marker-phoenix").addEventListener("markerFound", () => 
   currentText = texts.phoenix.content
   activeMarker = "phoenix"
 
-  // Mostrar el botón de reproducción
-  speakBtn.classList.remove("hidden")
+  // Mostrar el botón adecuado
+  updateButtonState()
 
   // Restablecer escala al tamaño original del ave
   document.querySelector("#bird-model").setAttribute("scale", "0.6 1 1")
@@ -84,8 +93,8 @@ document.querySelector("#marker-lion").addEventListener("markerFound", () => {
   currentText = texts.lion.content
   activeMarker = "lion"
 
-  // Mostrar el botón de reproducción
-  speakBtn.classList.remove("hidden")
+  // Mostrar el botón adecuado
+  updateButtonState()
 
   // Restablecer escala al tamaño original del león
   document.querySelector("#lion-model").setAttribute("scale", "0.6 1 1")
@@ -97,8 +106,8 @@ document.querySelector("#marker-honestidad").addEventListener("markerFound", () 
   currentText = texts.honestidad.content
   activeMarker = "honestidad"
 
-  // Mostrar el botón de reproducción
-  speakBtn.classList.remove("hidden")
+  // Mostrar el botón adecuado
+  updateButtonState()
 
   // Restablecer escala al tamaño original del león
   document.querySelector("#honestidad-model").setAttribute("scale", "1 1 1")
@@ -110,8 +119,8 @@ document.querySelector("#marker-prudencia").addEventListener("markerFound", () =
   currentText = texts.prudencia.content
   activeMarker = "prudencia"
 
-  // Mostrar el botón de reproducción
-  speakBtn.classList.remove("hidden")
+  // Mostrar el botón adecuado
+  updateButtonState()
 
   // Restablecer escala al tamaño original del león
   document.querySelector("#prudencia-model").setAttribute("scale", "1 1 1")
@@ -123,8 +132,8 @@ document.querySelector("#marker-justicia").addEventListener("markerFound", () =>
   currentText = texts.justicia.content
   activeMarker = "justicia"
 
-  // Mostrar el botón de reproducción
-  speakBtn.classList.remove("hidden")
+  // Mostrar el botón adecuado
+  updateButtonState()
 
   // Restablecer escala al tamaño original de responsabilidad
   document.querySelector("#justicia-model").setAttribute("scale", "1 1 1")
@@ -136,8 +145,8 @@ document.querySelector("#marker-responsabilidad").addEventListener("markerFound"
   currentText = texts.responsabilidad.content
   activeMarker = "responsabilidad"
 
-  // Mostrar el botón de reproducción
-  speakBtn.classList.remove("hidden")
+  // Mostrar el botón adecuado
+  updateButtonState()
 
   // Restablecer escala al tamaño original de responsabilidad
   document.querySelector("#responsabilidad-model").setAttribute("scale", "0.4 0.4 0.4")
@@ -150,8 +159,10 @@ document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
     textElement.innerText = ""
     activeMarker = null
 
-    // Ocultar el botón y detener la reproducción
+    // Ocultar todos los botones y detener la reproducción
     speakBtn.classList.add("hidden")
+    pauseBtn.classList.add("hidden")
+    resumeBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -162,8 +173,10 @@ document.querySelector("#marker-lion").addEventListener("markerLost", () => {
     textElement.innerText = ""
     activeMarker = null
 
-    // Ocultar el botón y detener la reproducción
+    // Ocultar todos los botones y detener la reproducción
     speakBtn.classList.add("hidden")
+    pauseBtn.classList.add("hidden")
+    resumeBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -174,8 +187,10 @@ document.querySelector("#marker-honestidad").addEventListener("markerLost", () =
     textElement.innerText = ""
     activeMarker = null
 
-    // Ocultar el botón y detener la reproducción
+    // Ocultar todos los botones y detener la reproducción
     speakBtn.classList.add("hidden")
+    pauseBtn.classList.add("hidden")
+    resumeBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -186,8 +201,10 @@ document.querySelector("#marker-prudencia").addEventListener("markerLost", () =>
     textElement.innerText = ""
     activeMarker = null
 
-    // Ocultar el botón y detener la reproducción
+    // Ocultar todos los botones y detener la reproducción
     speakBtn.classList.add("hidden")
+    pauseBtn.classList.add("hidden")
+    resumeBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -198,8 +215,10 @@ document.querySelector("#marker-justicia").addEventListener("markerLost", () => 
     textElement.innerText = ""
     activeMarker = null
 
-    // Ocultar el botón y detener la reproducción
+    // Ocultar todos los botones y detener la reproducción
     speakBtn.classList.add("hidden")
+    pauseBtn.classList.add("hidden")
+    resumeBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
@@ -210,53 +229,60 @@ document.querySelector("#marker-responsabilidad").addEventListener("markerLost",
     textElement.innerText = ""
     activeMarker = null
 
-    // Ocultar el botón y detener la reproducción
+    // Ocultar todos los botones y detener la reproducción
     speakBtn.classList.add("hidden")
+    pauseBtn.classList.add("hidden")
+    resumeBtn.classList.add("hidden")
     stopSpeaking()
   }
 })
 
-// Función de texto a voz con pausa/reanudación
+// Función para iniciar la reproducción
 speakBtn.addEventListener("click", () => {
-  if (isSpeaking && !isPaused) {
-    // Pausar la reproducción
+  if (currentText) {
+    utterance = new SpeechSynthesisUtterance(currentText)
+    utterance.lang = "es-ES"
+    utterance.rate = 1.0
+    utterance.pitch = 1.0
+
+    // Guardar la posición actual para poder reanudar después
+    utterance.onboundary = (event) => {
+      if (event.name === "word") {
+        currentPosition = event.charIndex
+      }
+    }
+
+    utterance.onstart = () => {
+      isSpeaking = true
+      updateButtonState()
+    }
+
+    utterance.onend = () => {
+      isSpeaking = false
+      isPaused = false
+      currentPosition = 0
+      updateButtonState()
+    }
+
+    synth.speak(utterance)
+  }
+})
+
+// Función para pausar la reproducción
+pauseBtn.addEventListener("click", () => {
+  if (isSpeaking) {
     synth.pause()
     isPaused = true
     updateButtonState()
-  } else if (isPaused) {
-    // Reanudar la reproducción
+  }
+})
+
+// Función para reanudar la reproducción
+resumeBtn.addEventListener("click", () => {
+  if (isPaused) {
     synth.resume()
     isPaused = false
     updateButtonState()
-  } else {
-    // Iniciar nueva reproducción
-    if (currentText) {
-      utterance = new SpeechSynthesisUtterance(currentText)
-      utterance.lang = "es-ES"
-      utterance.rate = 1.0
-      utterance.pitch = 1.0
-
-      // Guardar la posición actual para poder reanudar después
-      utterance.onboundary = (event) => {
-        if (event.name === "word") {
-          currentPosition = event.charIndex
-        }
-      }
-
-      utterance.onstart = () => {
-        isSpeaking = true
-        updateButtonState()
-      }
-
-      utterance.onend = () => {
-        isSpeaking = false
-        isPaused = false
-        currentPosition = 0
-        updateButtonState()
-      }
-
-      synth.speak(utterance)
-    }
   }
 })
 
