@@ -13,6 +13,61 @@ const titleElement = document.getElementById("title")
 const instructionMessage = document.getElementById("instruction-message")
 
 const texts = {
+  logo: {
+    title: "Universidad: LOGO",
+    content:
+      `La marca gráfica es el principal signo
+      identificador de la Universidad Popular del
+      Cesar y está conformado por un símbolo con
+      las letras UPC y la representación del ser
+      humano, y el logotipo. Es la firma de la
+      institución en la cual se manifiestan sus
+      valores, principios y personalidad, originando
+      un impacto y un reconocimiento en la
+      memoria.`,
+  },
+  economia: {
+    title: "Programa: RESPETO",
+    content:
+      `Título Otorgado: Economista
+
+      Nivel de programa: Pregrado
+      
+      Tipo de formación: Profesional universitaria
+      
+      Metodología: Presencial
+      
+      Jornada: Única
+      
+      Duración: 10 semestres
+      
+      Créditos: 175
+      
+      Facultad: Ciencias Administrativas, Contables y Económicas
+      
+      No. Estudiantes Primer Semestre: Max. 100
+      
+      Periodicidad de admisión: Semestral
+      
+      Tipo de resolución: Registro calificado
+      
+      No. Resolución de aprobación: 2439
+      
+      Fecha resolución: 07/03/2024
+      
+      Código SNIES del programa: 105814
+      
+      Norma interna de creación: Acuerdo
+      
+      Ubicación: Aguachica - Cesar`;
+  },
+  mision: {
+    title: "Universidad: MISIÓN",
+    content:
+      `La Universidad Popular del Cesar, como institución de educación superior oficial del orden nacional, forma personas responsables social y culturalmente; 
+      con una educación de calidad, integral e inclusiva, rigor científico y tecnológico; mediante las diferentes modalidades y metodologías de educación, 
+      a través de programas pertinentes al contexto, dentro de la diversidad de campos disciplinares, en un marco de libertad de pensamiento; que consolide la construcción de saberes, para contribuir a la solución de problemas y conflictos, en un ambiente sostenible, con visibilidad nacional e internacional.`,
+  },
   honestidad: {
     title: "Valor Intitucional: HONESTIDAD",
     content:
@@ -153,6 +208,11 @@ function hideMarkerContent(markerId) {
 }
 
 // Detectar cuándo un marcador es visible
+document.querySelector("#marker-logo").addEventListener("markerFound", () => {
+  showMarkerContent("marker-logo")
+  // Restablecer escala al tamaño original del ave
+  document.querySelector("#logo-model").setAttribute("scale", "0.6 1 1")
+})
 document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
   showMarkerContent("marker-phoenix")
   // Restablecer escala al tamaño original del ave
@@ -197,6 +257,9 @@ document.querySelector("#marker-veracidad").addEventListener("markerFound", () =
 
 
 // Detectar cuándo un marcador se pierde
+document.querySelector("#marker-logo").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-logo")
+})
 document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
   hideMarkerContent("marker-phoenix")
 })
