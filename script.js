@@ -220,6 +220,10 @@ playBtn.addEventListener("click", () => {
     utterance.rate = 1.0
     utterance.pitch = 1.0
 
+     const loadingTimeout = setTimeout(() => {
+      hideLoadingState()
+    }, 3000) // Máximo 3 segundos esperando que empiece a hablar
+
     
     utterance.onstart = () => {
       // Cancelar el timeout ya que la reproducción ha comenzado
