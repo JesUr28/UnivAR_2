@@ -220,16 +220,7 @@ playBtn.addEventListener("click", () => {
     utterance.rate = 1.0
     utterance.pitch = 1.0
 
-    // Establecer un tiempo máximo de espera para la carga
-    const loadingTimeout = setTimeout(() => {
-      if (isLoading) {
-        // Si después de 5 segundos no ha comenzado la reproducción,
-        // reintentar o mostrar un mensaje de error
-        hideLoadingState()
-        alert("La reproducción está tardando demasiado. Por favor, inténtalo de nuevo.")
-      }
-    }, 5000)
-
+    
     utterance.onstart = () => {
       // Cancelar el timeout ya que la reproducción ha comenzado
       clearTimeout(loadingTimeout)
@@ -242,12 +233,6 @@ playBtn.addEventListener("click", () => {
     utterance.onend = () => {
       isSpeaking = false
       updateButtonState()
-    }
-
-    utterance.onerror = (event) => {
-      console.error("Error en la reproducción:", event)
-      hideLoadingState()
-      alert("Hubo un error al reproducir el texto. Por favor, inténtalo de nuevo.")
     }
 
     synth.speak(utterance)
