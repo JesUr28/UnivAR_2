@@ -213,15 +213,15 @@ document.querySelector("#marker-logo").addEventListener("markerFound", () => {
   // Restablecer escala al tamaño original del ave
   document.querySelector("#logo-model").setAttribute("scale", "0.6 1 1")
 })
-document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
-  showMarkerContent("marker-phoenix")
+document.querySelector("#marker-economia").addEventListener("markerFound", () => {
+  showMarkerContent("marker-economia")
   // Restablecer escala al tamaño original del ave
-  document.querySelector("#bird-model").setAttribute("scale", "0.6 1 1")
+  document.querySelector("#economia-model").setAttribute("scale", "0.6 1 1")
 })
-document.querySelector("#marker-lion").addEventListener("markerFound", () => {
-  showMarkerContent("marker-lion")
+document.querySelector("#marker-mision").addEventListener("markerFound", () => {
+  showMarkerContent("marker-mision")
   // Restablecer escala al tamaño original del león
-  document.querySelector("#lion-model").setAttribute("scale", "0.6 1 1")
+  document.querySelector("#mision-model").setAttribute("scale", "0.6 1 1")
 })
 document.querySelector("#marker-honestidad").addEventListener("markerFound", () => {
   showMarkerContent("marker-honestidad")
@@ -260,11 +260,11 @@ document.querySelector("#marker-veracidad").addEventListener("markerFound", () =
 document.querySelector("#marker-logo").addEventListener("markerLost", () => {
   hideMarkerContent("marker-logo")
 })
-document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-phoenix")
+document.querySelector("#marker-economia").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-economia")
 })
-document.querySelector("#marker-lion").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-lion")
+document.querySelector("#marker-mision").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-mision")
 })
 document.querySelector("#marker-honestidad").addEventListener("markerLost", () => {
   hideMarkerContent("marker-honestidad")
