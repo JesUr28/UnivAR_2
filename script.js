@@ -14,15 +14,15 @@ const instructionMessage = document.getElementById("instruction-message")
 
 const texts = {
   phoenix: {
-    title: "LOGO",
+    title: "Historia del Fénix",
     content:
-      "La marca gráfica es el principal signo identificador de la Universidad Popular del Cesar y está conformado por un símbolo con las letras UPC y la representación del ser humano, y el logotipo. Es la firma de la institución en la cual se manifiestan sus valores, principios y personalidad, originando un impacto y un reconocimiento en la memoria.",
+      "El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte. Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.",
   },
   lion: {
-    title: "Economía",
+    title: "Historia del León",
     content:
-      "programa de la universidad;
-        },
+      "El león es un símbolo de fuerza, valentía y liderazgo. Ha sido representado en diversas culturas como el rey de los animales, apareciendo en banderas, escudos de armas y mitologías alrededor del mundo.",
+  },
   honestidad: {
     title: "Valor Intitucional: HONESTIDAD",
     content:
