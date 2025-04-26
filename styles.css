@@ -60,16 +60,12 @@
   display: none !important;
 }
 
-/* Estilos específicos para cada botón */
-#pause-btn {
+/* Estilos específicos para el botón de detener */
+#stop-btn {
   background-color: #f44336;
 }
 
-#pause-btn:hover {
+#stop-btn:hover {
   background-color: #d32f2f;
-}
-
-.speak-button:not(.hidden) {
-  animation: fadeIn 0.3s ease-out;
 }
 
