@@ -39,7 +39,7 @@ const texts = {
       "La Justicia corresponde a la Universidad ser depositaria de la aplicación de la Justicia, entendida ésta como todas las acciones públicas y privadas dirigidas a los individuos para garantizar la igualdad, el respeto, la integridad, el libre desarrollo de la personalidad y el respeto por la vida, las creencias, los credos políticos, los derechos humanos, y el disfrute de condiciones de dignidad para estudiantes, profesores y administrativos, a la luz de su misión y visión en el marco legal y constitucional que nos rige. La Justicia considerada por los antiguos como la más excelsa de todas las virtudes, es un valor que nos inclina a dar a cada quien lo que le corresponde como propio según la recta razón.",
   },
   responsabilidad: {
-    title: "Valor Intitucional: Responsabilidad",
+    title: "Universidad: MISIÓN",
     content:
       "La Responsabilidad es el cumplimiento de la tarea o labor asignada, asumida de manera libre y autónoma, y como compromiso individual, colectivo o social, desde la posición que cada grupo, individuo o estamento ocupe, para generar un clima de confianza. La Responsabilidad es la conciencia acerca de las consecuencias de todas nuestras actuaciones y la libre voluntad para realizarlas.",
   },
@@ -181,7 +181,7 @@ document.querySelector("#marker-justicia").addEventListener("markerFound", () =>
 document.querySelector("#marker-responsabilidad").addEventListener("markerFound", () => {
   showMarkerContent("marker-responsabilidad")
   // Restablecer escala al tamaño original
-  document.querySelector("#responsabilidad-model").setAttribute("scale", "0.4 0.4 0.4")
+  document.querySelector("#responsabilidad-model").setAttribute("scale", "0.6 1 1")
 })
 
 // Detectar cuándo un marcador se pierde
