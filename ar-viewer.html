@@ -80,7 +80,12 @@
         
         <!-- Contenedor del texto -->
         <div id="info-box">
-            <button id="play-btn" class="speak-button hidden">▶️ Reproducir</button>
+            <button id="play-btn" class="speak-button hidden">
+                <span id="play-text">▶️ Reproducir</span>
+                <span id="loading-text" class="hidden">
+                    <span class="loading-spinner"></span> Cargando...
+                </span>
+            </button>
             <button id="stop-btn" class="speak-button hidden">⏹️ Detener</button>
             <div id="instruction-message" class="instruction">
                 <h2>Instrucciones</h2>
@@ -94,4 +99,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
