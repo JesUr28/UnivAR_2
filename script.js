@@ -14,46 +14,14 @@ const instructionMessage = document.getElementById("instruction-message")
 
 const texts = {
   phoenix: {
-    title: "Programa: RESPETO",
+    title: "Historia del Fénix",
     content:
-      `Título Otorgado: Economista
-
-      Nivel de programa: Pregrado
-      
-      Tipo de formación: Profesional universitaria
-      
-      Metodología: Presencial
-      
-      Jornada: Única
-      
-      Duración: 10 semestres
-      
-      Créditos: 175
-      
-      Facultad: Ciencias Administrativas, Contables y Económicas
-      
-      No. Estudiantes Primer Semestre: Max. 100
-      
-      Periodicidad de admisión: Semestral
-      
-      Tipo de resolución: Registro calificado
-      
-      No. Resolución de aprobación: 2439
-      
-      Fecha resolución: 07/03/2024
-      
-      Código SNIES del programa: 105814
-      
-      Norma interna de creación: Acuerdo
-      
-      Ubicación: Aguachica - Cesar`;
+      "El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte. Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.",
   },
   lion: {
-    title: "Universidad: MISIÓN",
+    title: "Historia del León",
     content:
-      `La Universidad Popular del Cesar, como institución de educación superior oficial del orden nacional, forma personas responsables social y culturalmente; 
-      con una educación de calidad, integral e inclusiva, rigor científico y tecnológico; mediante las diferentes modalidades y metodologías de educación, 
-      a través de programas pertinentes al contexto, dentro de la diversidad de campos disciplinares, en un marco de libertad de pensamiento; que consolide la construcción de saberes, para contribuir a la solución de problemas y conflictos, en un ambiente sostenible, con visibilidad nacional e internacional.`,
+      "El león es un símbolo de fuerza, valentía y liderazgo. Ha sido representado en diversas culturas como el rey de los animales, apareciendo en banderas, escudos de armas y mitologías alrededor del mundo.",
   },
   logo: {
     title: "Universidad: LOGO",
