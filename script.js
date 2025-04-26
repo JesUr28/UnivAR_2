@@ -1,10 +1,13 @@
 const synth = window.speechSynthesis
 let isSpeaking = false
+let isLoading = false
 let activeMarker = null
 let isProcessingMarker = false // Flag para evitar procesamiento simultáneo de marcadores
 
 const playBtn = document.getElementById("play-btn")
 const stopBtn = document.getElementById("stop-btn")
+const playText = document.getElementById("play-text")
+const loadingText = document.getElementById("loading-text")
 const textElement = document.getElementById("phoenix-text")
 const titleElement = document.getElementById("title")
 const instructionMessage = document.getElementById("instruction-message")
@@ -13,8 +16,7 @@ const texts = {
   phoenix: {
     title: "Historia del Fénix",
     content:
-      `El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte. 
-      Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.`,
+      "El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte. Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.",
   },
   lion: {
     title: "Historia del León",
@@ -57,14 +59,37 @@ function updateButtonState() {
     } else {
       // Si no está reproduciendo, mostrar el botón de reproducir
       playBtn.classList.remove("hidden")
+
+      // Asegurarse de que el botón muestre "Reproducir" y no "Cargando"
+      if (!isLoading) {
+        playText.classList.remove("hidden")
+        loadingText.classList.add("hidden")
+      }
     }
   }
+}
+
+// Función para mostrar el estado de carga
+function showLoadingState() {
+  isLoading = true
+  playText.classList.add("hidden")
+  loadingText.classList.remove("hidden")
+  playBtn.disabled = true
+}
+
+// Función para ocultar el estado de carga
+function hideLoadingState() {
+  isLoading = false
+  playText.classList.remove("hidden")
+  loadingText.classList.add("hidden")
+  playBtn.disabled = false
 }
 
 // Función para detener la reproducción
 function stopSpeaking() {
   synth.cancel()
   isSpeaking = false
+  hideLoadingState()
   updateButtonState()
 }
 
@@ -186,20 +211,43 @@ document.querySelector("#marker-responsabilidad").addEventListener("markerLost",
 
 // Función para iniciar la reproducción
 playBtn.addEventListener("click", () => {
-  if (textElement.innerText) {
+  if (textElement.innerText && !isLoading) {
+    // Mostrar estado de carga
+    showLoadingState()
+
     const utterance = new SpeechSynthesisUtterance(textElement.innerText)
     utterance.lang = "es-ES"
     utterance.rate = 1.0
     utterance.pitch = 1.0
 
+    // Establecer un tiempo máximo de espera para la carga
+    const loadingTimeout = setTimeout(() => {
+      if (isLoading) {
+        // Si después de 5 segundos no ha comenzado la reproducción,
+        // reintentar o mostrar un mensaje de error
+        hideLoadingState()
+        alert("La reproducción está tardando demasiado. Por favor, inténtalo de nuevo.")
+      }
+    }, 5000)
+
     utterance.onstart = () => {
+      // Cancelar el timeout ya que la reproducción ha comenzado
+      clearTimeout(loadingTimeout)
+
       isSpeaking = true
+      hideLoadingState()
       updateButtonState()
     }
 
     utterance.onend = () => {
       isSpeaking = false
       updateButtonState()
+    }
+
+    utterance.onerror = (event) => {
+      console.error("Error en la reproducción:", event)
+      hideLoadingState()
+      alert("Hubo un error al reproducir el texto. Por favor, inténtalo de nuevo.")
     }
 
     synth.speak(utterance)
@@ -214,4 +262,14 @@ stopBtn.addEventListener("click", () => {
 // Pequeña mejora para prevenir zoom en dispositivos iOS
 document.addEventListener("gesturestart", (e) => {
   e.preventDefault()
+})
+
+// Precarga de voces para mejorar el tiempo de respuesta
+window.addEventListener("DOMContentLoaded", () => {
+  // Intentar precargar las voces
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => {
+      speechSynthesis.getVoices()
+    }
+  }
 })
