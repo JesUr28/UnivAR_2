@@ -57,8 +57,26 @@
 
 /* Clase para ocultar elementos */
 .hidden {
-  display: none;
+  display: none !important;
 }
+
+/* Estilos específicos para cada botón */
+#pause-btn {
+  background-color: #f44336;
+}
+
+#pause-btn:hover {
+  background-color: #d32f2f;
+}
+
+#resume-btn {
+  background-color: #2196f3;
+}
+
+#resume-btn:hover {
+  background-color: #1976d2;
+}
+
 
 /* Estilos para los iconos */
 #play-icon,
