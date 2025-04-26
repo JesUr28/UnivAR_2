@@ -16,50 +16,12 @@ const texts = {
   phoenix: {
     title: "LOGO",
     content:
-      `La marca gráfica es el principal signo
-      identificador de la Universidad Popular del
-      Cesar y está conformado por un símbolo con
-      las letras UPC y la representación del ser
-      humano, y el logotipo. Es la firma de la
-      institución en la cual se manifiestan sus
-      valores, principios y personalidad, originando
-      un impacto y un reconocimiento en la
-      memoria.`,
+      "La marca gráfica es el principal signo identificador de la Universidad Popular del Cesar y está conformado por un símbolo con las letras UPC y la representación del ser humano, y el logotipo. Es la firma de la institución en la cual se manifiestan sus valores, principios y personalidad, originando un impacto y un reconocimiento en la memoria.",
   },
   lion: {
     title: "Economía",
     content:
-      `Título Otorgado: Economista
-
-      Nivel de programa: Pregrado
-      
-      Tipo de formación: Profesional universitaria
-      
-      Metodología: Presencial
-      
-      Jornada: Única
-      
-      Duración: 10 semestres
-      
-      Créditos: 175
-      
-      Facultad: Ciencias Administrativas, Contables y Económicas
-      
-      No. Estudiantes Primer Semestre: Max. 100
-      
-      Periodicidad de admisión: Semestral
-      
-      Tipo de resolución: Registro calificado
-      
-      No. Resolución de aprobación: 2439
-      
-      Fecha resolución: 07/03/2024
-      
-      Código SNIES del programa: 105814
-      
-      Norma interna de creación: Acuerdo
-      
-      Ubicación: Aguachica - Cesar`;
+      "programa de la universidad;
         },
   honestidad: {
     title: "Valor Intitucional: HONESTIDAD",
