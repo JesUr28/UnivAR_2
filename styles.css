@@ -49,10 +49,6 @@
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
 }
 
 .speak-button:hover {
@@ -61,7 +57,7 @@
 
 /* Clase para ocultar elementos */
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 /* Estilos para los iconos */
@@ -99,3 +95,4 @@
 .speak-button:not(.hidden) {
   animation: fadeIn 0.3s ease-out;
 }
+
