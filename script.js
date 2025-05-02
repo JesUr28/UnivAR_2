@@ -13,52 +13,35 @@ const titleElement = document.getElementById("title")
 const instructionMessage = document.getElementById("instruction-message")
 
 const texts = {
-  economia: {
-    title: "Historia del Fénix",
-    content:
-      "El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte. Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.",
-  },
-  mision: {
-    title: "Historia del León",
-    content:
-      "El león es un símbolo de fuerza, valentía y liderazgo. Ha sido representado en diversas culturas como el rey de los animales, apareciendo en banderas, escudos de armas y mitologías alrededor del mundo.",
-  },
-  logo: {
+  phoenix: {
     title: "LOGO",
     content:
       "La marca gráfica es el principal signo identificador de la Universidad Popular del Cesar y está conformada por un símbolo con las letras UPC y la representación del ser humano, y el logotipo. Es la firma de la institución en la cual se manifiestan sus valores, principios y personalidad, originando un impacto y un reconocimiento en la memoria.",
   },
+  lion: {
+    title: "Programa: Economía",
+    content:
+      "El programa de Economía otorga el título de Economista, corresponde al nivel de pregrado y se ofrece como formación profesional universitaria bajo la metodología presencial y jornada única. Tiene una duración de 10 semestres, con un total de 175 créditos académicos, y pertenece a la Facultad de Ciencias Administrativas, Contables y Económicas. El número máximo de estudiantes admitidos en primer semestre es de 100, con una periodicidad de admisión semestral. Cuenta con registro calificado, aprobado mediante la Resolución No. 2439 del 7 de marzo de 2024, y está identificado con el Código SNIES 105814. Su creación se rige por norma interna a través de un acuerdo, y el programa se ofrece en la sede ubicada en Aguachica, departamento del Cesar.",
+  },
   honestidad: {
     title: "Valor Intitucional: HONESTIDAD",
     content:
-      "Actuar con transparencia, rectitud y coherencia entre lo que se piensa, se dice y se hace, fomentando la confianza y el respeto mutuo. La honestidad en la Universidad Popular del Cesar guía el comportamiento ético de todos sus miembros, promoviendo relaciones basadas en la verdad y la integridad, fundamentales para el desarrollo académico y humano.",
+      "La Honestidad les da honor y decoro a las actividades realizadas, porque genera confianza, respeto y consideración por el trabajo. Es el valor que les da decoro y pudor a nuestras acciones y nos hace dignos de merecer honor, respeto y consideración.",
   },
-  respeto: {
-    title: "Valor Intitucional: RESPETO",
+  prudencia: {
+    title: "Valor Intitucional: PRUDENCIA",
     content:
-      "Reconocer y valorar la dignidad, ideas, creencias y diferencias de los demás, manteniendo una convivencia armónica. En la Universidad Popular del Cesar, el respeto es un pilar esencial para construir una comunidad incluyente, tolerante y democrática, donde el diálogo y la aceptación de la diversidad enriquecen el proceso formativo.",
+      "La Prudencia es el ejercicio pensado del ser y del actuar para el respeto de los otros; implica callar cuando no corresponde ni por autoridad ni por trabajo, o delatar o hablar o escribir o dar información sobre lo que no se me pregunta. La Prudencia es el valor del discernimiento sobre el bien y la forma para llevarlo a cabo y permite distinguir entre lo bueno y lo malo.",
   },
   justicia: {
     title: "Valor Intitucional: JUSTICIA",
     content:
-      "Garantizar la equidad, la imparcialidad y el cumplimiento de los derechos y deberes de todos los miembros de la comunidad universitaria. La Universidad Popular del Cesar se compromete con una educación justa, donde se brinda igualdad de oportunidades y se vela por el bienestar común, contribuyendo a una sociedad más equilibrada y solidaria.",
+      "La Justicia corresponde a la Universidad ser depositaria de la aplicación de la Justicia, entendida ésta como todas las acciones públicas y privadas dirigidas a los individuos para garantizar la igualdad, el respeto, la integridad, el libre desarrollo de la personalidad y el respeto por la vida, las creencias, los credos políticos, los derechos humanos, y el disfrute de condiciones de dignidad para estudiantes, profesores y administrativos, a la luz de su misión y visión en el marco legal y constitucional que nos rige. La Justicia considerada por los antiguos como la más excelsa de todas las virtudes, es un valor que nos inclina a dar a cada quien lo que le corresponde como propio según la recta razón.",
   },
-  compromiso: {
-    title: "Valor Intitucional: COMPROMISO",
+  responsabilidad: {
+    title: "Universidad: MISIÓN",
     content:
-      "Asumir con responsabilidad y entrega las tareas y metas institucionales, aportando al cumplimiento de la misión y visión universitaria. El compromiso en la Universidad Popular del Cesar refleja la disposición de sus miembros para contribuir activamente con el desarrollo personal, profesional y social desde su rol en la comunidad educativa.",
-  },
-  
-  diligencia: {
-    title: "Valor Intitucional: DILIGENCIA",
-    content:
-      "Cumplir con esmero, responsabilidad y eficiencia las funciones y tareas asignadas, procurando siempre la excelencia. En la Universidad Popular del Cesar, la diligencia impulsa una cultura del trabajo bien hecho, del esfuerzo constante y del compromiso con la mejora continua en los procesos académicos y administrativos.",
-  },
-  
-  veracidad: {
-    title: "Valor Intitucional: VERACIDAD",
-    content:
-      "Expresar siempre la verdad con responsabilidad y sin distorsiones, en la búsqueda del conocimiento y en las relaciones interpersonales. La veracidad en la Universidad Popular del Cesar es base para la confianza institucional, la credibilidad académica y el ejercicio crítico y reflexivo de la libertad de pensamiento.",
+      "La Universidad Popular del Cesar, como institución de educación superior oficial del orden nacional, forma personas responsables social y culturalmente; con una educación de calidad, integral e inclusiva, rigor científico y tecnológico; mediante las diferentes modalidades y metodologías de educación, a través de programas pertinentes al contexto, dentro de la diversidad de campos disciplinares, en un marco de libertad de pensamiento; que consolide la construcción de saberes, para contribuir a la solución de problemas y conflictos, en un ambiente sostenible, con visibilidad nacional e internacional.",
   },
 }
 
@@ -165,82 +148,65 @@ function hideMarkerContent(markerId) {
 }
 
 // Detectar cuándo un marcador es visible
-document.querySelector("#marker-economia").addEventListener("markerFound", () => {
-  showMarkerContent("marker-economia")
+document.querySelector("#marker-phoenix").addEventListener("markerFound", () => {
+  showMarkerContent("marker-phoenix")
   // Restablecer escala al tamaño original del ave
-  document.querySelector("#economia-model").setAttribute("scale", "0.6 1 1")
+  document.querySelector("#bird-model").setAttribute("scale", "0.6 1 1")
 })
-document.querySelector("#marker-mision").addEventListener("markerFound", () => {
-  showMarkerContent("marker-mision")
+
+document.querySelector("#marker-lion").addEventListener("markerFound", () => {
+  showMarkerContent("marker-lion")
   // Restablecer escala al tamaño original del león
-  document.querySelector("#mision-model").setAttribute("scale", "0.6 1 1")
+  document.querySelector("#lion-model").setAttribute("scale", "0.6 1 1")
 })
-document.querySelector("#marker-logo").addEventListener("markerFound", () => {
-  showMarkerContent("marker-logo")
-  // Restablecer escala al tamaño original del ave
-  document.querySelector("#logo-model").setAttribute("scale", "0.6 1 1")
-})
+
 document.querySelector("#marker-honestidad").addEventListener("markerFound", () => {
   showMarkerContent("marker-honestidad")
   // Restablecer escala al tamaño original
   document.querySelector("#honestidad-model").setAttribute("scale", "1 1 1")
 })
-document.querySelector("#marker-respeto").addEventListener("markerFound", () => {
-  showMarkerContent("marker-respeto")
+
+document.querySelector("#marker-prudencia").addEventListener("markerFound", () => {
+  showMarkerContent("marker-prudencia")
   // Restablecer escala al tamaño original
-  document.querySelector("#respeto-model").setAttribute("scale", "1 1 1")
+  document.querySelector("#prudencia-model").setAttribute("scale", "1 1 1")
 })
+
 document.querySelector("#marker-justicia").addEventListener("markerFound", () => {
   showMarkerContent("marker-justicia")
   // Restablecer escala al tamaño original
   document.querySelector("#justicia-model").setAttribute("scale", "1 1 1")
 })
-document.querySelector("#marker-compromiso").addEventListener("markerFound", () => {
-  showMarkerContent("marker-compromiso")
-  // Restablecer escala al tamaño original
-  document.querySelector("#compromiso-model").setAttribute("scale", "1 1 1")
-})
-document.querySelector("#marker-diligencia").addEventListener("markerFound", () => {
-  showMarkerContent("marker-diligencia")
-  // Restablecer escala al tamaño original
-  document.querySelector("#diligencia-model").setAttribute("scale", "1 1 1")
-})
-document.querySelector("#marker-veracidad").addEventListener("markerFound", () => {
-  showMarkerContent("marker-veracidad")
-  // Restablecer escala al tamaño original
-  document.querySelector("#veracidad-model").setAttribute("scale", "1 1 1")
-})
 
-
+document.querySelector("#marker-responsabilidad").addEventListener("markerFound", () => {
+  showMarkerContent("marker-responsabilidad")
+  // Restablecer escala al tamaño original
+  document.querySelector("#responsabilidad-model").setAttribute("scale", "0.6 1 1")
+})
 
 // Detectar cuándo un marcador se pierde
+document.querySelector("#marker-phoenix").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-phoenix")
+})
 
-document.querySelector("#marker-economia").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-economia")
+document.querySelector("#marker-lion").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-lion")
 })
-document.querySelector("#marker-mision").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-mision")
-})
+
 document.querySelector("#marker-honestidad").addEventListener("markerLost", () => {
   hideMarkerContent("marker-honestidad")
 })
-document.querySelector("#marker-respeto").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-respeto")
+
+document.querySelector("#marker-prudencia").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-prudencia")
 })
+
 document.querySelector("#marker-justicia").addEventListener("markerLost", () => {
   hideMarkerContent("marker-justicia")
 })
-document.querySelector("#marker-compromiso").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-compromiso")
-})
-document.querySelector("#marker-diligencia").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-diligencia")
-})
-document.querySelector("#marker-veracidad").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-veracidad")
-})
-document.querySelector("#marker-logo").addEventListener("markerLost", () => {
-  hideMarkerContent("marker-logo")
+
+document.querySelector("#marker-responsabilidad").addEventListener("markerLost", () => {
+  hideMarkerContent("marker-responsabilidad")
 })
 
 // Función para iniciar la reproducción
